@@ -1,0 +1,22 @@
+# Cloudflare Pages: headers por caminho (CONTEXT.md §5).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), xr-spatial-tracking=(self), geolocation=(), microphone=()
+
+# Arquivos do build têm hash no nome: cache eterno.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Modelos 3D: MIME correto é obrigatório (sem ele o iPhone baixa em vez de abrir o AR)
+# e CORS liberado para o Scene Viewer buscar pela URL.
+/*.glb
+  Content-Type: model/gltf-binary
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400
+
+/*.usdz
+  Content-Type: model/vnd.usdz+zip
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400

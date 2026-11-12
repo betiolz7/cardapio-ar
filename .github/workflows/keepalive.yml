@@ -1,0 +1,38 @@
+name: Manter Supabase ativo
+
+# O plano grátis do Supabase pausa o projeto depois de 7 dias sem atividade
+# (CONTEXT.md §12.1). Esta rotina faz uma consulta pública a cada 3 dias.
+#
+# Configure em Settings > Secrets and variables > Actions:
+#   SUPABASE_URL       https://<ref>.supabase.co
+#   SUPABASE_ANON_KEY  a chave PÚBLICA (anon/publishable), nunca a service_role
+#   KEEPALIVE_SLUG     slug de um restaurante (ex.: casa-lume)
+#
+# Obs.: em repositório PÚBLICO, o GitHub desliga rotinas agendadas após 60 dias
+# sem commits. Em repositório privado isso não acontece.
+
+on:
+  schedule:
+    - cron: '17 12 */3 * *' # a cada 3 dias, 09:17 em São Paulo
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Consulta o cardápio
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          KEEPALIVE_SLUG: ${{ secrets.KEEPALIVE_SLUG }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::notice::Secrets do Supabase não configurados; nada a fazer."
+            exit 0
+          fi
+          status=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$SUPABASE_URL/rest/v1/rpc/get_menu" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Content-Type: application/json" \
+            -d "{\"p_slug\":\"${KEEPALIVE_SLUG:-casa-lume}\"}")
+          echo "HTTP $status"
+          test "$status" = "200"
