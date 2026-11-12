@@ -146,7 +146,7 @@ export function TablesPage() {
 
         {tables === null && !error && <p className="text-center text-muted">Carregando mesas…</p>}
         {tables?.length === 0 && (
-          <p className="rounded-2xl border border-dashed border-line p-6 text-center text-muted">Nenhuma mesa ainda.</p>
+          <p className="rounded-lg border border-dashed border-line p-6 text-center text-muted">Nenhuma mesa ainda.</p>
         )}
 
         {tables && tables.length > 0 && (
@@ -154,7 +154,7 @@ export function TablesPage() {
             {tables.map((table) => {
               const url = tableUrl(origin, restaurant.slug, table.token)
               return (
-                <li key={table.id} className="flex gap-3 rounded-2xl border border-line bg-surface p-3">
+                <li key={table.id} className="flex gap-3 rounded-lg border border-line bg-surface p-3">
                   <QrCode value={url} label={`QR code da ${table.label}`} className="size-24 shrink-0 overflow-hidden rounded-lg bg-white p-1" />
                   <div className="min-w-0 flex-1 space-y-2">
                     {editing?.id === table.id ? (

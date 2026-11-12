@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router'
+import { KodaLogo } from '../components/brand/Koda.tsx'
 import { StatusScreen } from '../components/StatusScreen.tsx'
 import { isSupabaseConfigured } from '../lib/env.ts'
 import { useSession } from './admin-context.ts'
@@ -24,7 +25,7 @@ function LoginForm() {
   const [busy, setBusy] = useState(false)
 
   useEffect(() => {
-    document.title = 'Entrar · Cardápio AR'
+    document.title = 'Entrar · KodaLabs'
   }, [])
 
   if (session) return <Navigate to={next} replace />
@@ -43,10 +44,12 @@ function LoginForm() {
   }
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center px-6 py-12">
-      <p className="text-sm font-semibold uppercase tracking-widest text-accent">Cardápio AR</p>
-      <h1 className="mt-2 text-2xl font-bold">Entrar no painel</h1>
-      <form onSubmit={onSubmit} className="mt-8 space-y-4">
+    <main className="flex min-h-dvh items-center justify-center bg-pixel-grid px-5 py-12">
+      <div className="w-full max-w-sm rounded-lg border-2 border-ink bg-surface p-6 shadow-px-lg">
+      <KodaLogo className="text-lg" dogClass="size-7" />
+      <h1 className="mt-5 text-2xl font-bold">Entrar no painel</h1>
+      <p className="mt-1 text-sm text-muted">Cardápio AR do seu restaurante.</p>
+      <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <Field label="E-mail" htmlFor="email">
           <input
             id="email"
@@ -74,6 +77,7 @@ function LoginForm() {
           {busy ? 'Entrando…' : 'Entrar'}
         </button>
       </form>
+      </div>
     </main>
   )
 }

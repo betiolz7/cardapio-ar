@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from 're
 import { Link, useParams } from 'react-router'
 import { InAppBrowserNotice } from '../components/ar/InAppBrowserNotice.tsx'
 import { ModelViewer, type ArOutcome } from '../components/ar/ModelViewer.tsx'
+import { MadeByKoda } from '../components/brand/Koda.tsx'
 import { LoadingScreen, StatusScreen } from '../components/StatusScreen.tsx'
 import { track } from '../lib/analytics.ts'
+import { accentVars } from '../lib/color.ts'
 import { currentDevice } from '../lib/device.ts'
 import { formatDims, formatPrice, formatServes } from '../lib/format.ts'
 import { useMenu } from '../lib/menu.ts'
@@ -17,7 +19,7 @@ export function ItemPage() {
   if (state.status === 'error') {
     return (
       <StatusScreen title="Não foi possível carregar o prato">
-        <button type="button" onClick={state.retry} className="mt-4 min-h-12 rounded-full bg-accent px-6 font-semibold text-accent-ink">
+        <button type="button" onClick={state.retry} className="btn-px mt-4 min-h-12 rounded-md bg-ink px-6 font-bold text-bg">
           Tentar de novo
         </button>
       </StatusScreen>
@@ -28,7 +30,7 @@ export function ItemPage() {
     return (
       <StatusScreen title="Prato não encontrado">
         {slug && (
-          <Link to={`/${slug}`} className="text-accent underline">
+          <Link to={`/${slug}`} className="font-semibold text-ink underline underline-offset-4">
             Voltar ao cardápio
           </Link>
         )}
@@ -80,15 +82,15 @@ function ItemView({ menu, item }: { menu: Menu; item: MenuItem }) {
   const serves = formatServes(item.serves)
 
   return (
-    <div style={restaurant.theme_color ? ({ '--accent': restaurant.theme_color } as CSSProperties) : undefined}>
+    <div style={accentVars(restaurant.theme_color) as CSSProperties | undefined}>
       <main className="mx-auto max-w-2xl px-4 pb-16">
         <nav className="py-4">
-          <Link to={`/${restaurant.slug}`} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted hover:text-ink">
+          <Link to={`/${restaurant.slug}`} className="inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-muted hover:text-ink">
             ← {restaurant.name}
           </Link>
         </nav>
 
-        <div className="aspect-square w-full overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-surface-2 to-surface">
+        <div className="relative aspect-square w-full overflow-hidden rounded-lg border-2 border-ink bg-surface bg-pixel-grid shadow-px-lg">
           {model ? (
             <ModelViewer
               model={model}
@@ -102,12 +104,12 @@ function ItemView({ menu, item }: { menu: Menu; item: MenuItem }) {
           ) : null}
         </div>
 
-        {model && <p className="mt-2 text-center text-xs text-muted">Arraste para girar · pinça para aproximar</p>}
+        {model && <p className="mt-3 text-center text-xs text-muted">Arraste para girar · pinça para aproximar</p>}
 
         <header className="mt-5">
           <div className="flex items-start justify-between gap-4">
             <h1 className="text-2xl font-bold leading-tight">{item.name}</h1>
-            <span className="shrink-0 text-xl font-semibold">{formatPrice(item.price_cents)}</span>
+            <span className="shrink-0 rounded-md bg-ink px-2.5 py-1 font-display text-lg font-bold text-bg">{formatPrice(item.price_cents)}</span>
           </div>
           {(dims || serves) && <p className="mt-1 text-sm text-muted">{[dims, serves].filter(Boolean).join(' · ')}</p>}
           {!item.is_available && <p className="mt-2 text-sm font-semibold uppercase text-muted">Esgotado no momento</p>}
@@ -125,7 +127,7 @@ function ItemView({ menu, item }: { menu: Menu; item: MenuItem }) {
                   type="button"
                   onClick={openAR}
                   disabled={!modelReady}
-                  className="min-h-14 w-full rounded-2xl bg-accent px-6 text-lg font-bold text-accent-ink transition-opacity disabled:opacity-50"
+                  className="btn-px flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-accent px-6 text-lg font-bold text-accent-ink disabled:opacity-50"
                 >
                   {modelReady ? 'Ver na minha mesa' : 'Preparando o 3D…'}
                 </button>
@@ -136,18 +138,20 @@ function ItemView({ menu, item }: { menu: Menu; item: MenuItem }) {
             )}
 
             {arMessage === 'unsupported' && (
-              <p role="status" className="rounded-2xl bg-surface-2 p-4 text-sm text-muted">
+              <p role="status" className="rounded-md border-2 border-ink/10 bg-surface-2 p-4 text-sm text-muted">
                 Este aparelho não abre a realidade aumentada. Você ainda pode girar o prato em 3D acima e ver as medidas reais.
               </p>
             )}
             {arMessage === 'failed' && (
-              <p role="status" className="rounded-2xl bg-surface-2 p-4 text-sm text-muted">
+              <p role="status" className="rounded-md border-2 border-ink/10 bg-surface-2 p-4 text-sm text-muted">
                 Não foi possível abrir a realidade aumentada neste aparelho. Se apareceu um pedido de permissão da câmera, libere e
                 tente de novo. Você ainda pode girar o prato em 3D acima.
               </p>
             )}
           </section>
         )}
+
+        <MadeByKoda />
       </main>
     </div>
   )

@@ -6,7 +6,7 @@ export function InAppBrowserNotice() {
   const isAndroid = /Android/.test(navigator.userAgent)
 
   return (
-    <div role="note" className="rounded-2xl border border-accent/40 bg-accent/10 p-4 text-sm leading-relaxed">
+    <div role="note" className="rounded-md border-2 border-ink bg-surface p-4 text-sm leading-relaxed shadow-px">
       <p className="font-semibold text-ink">Para ver o prato na sua mesa, abra no navegador.</p>
       <p className="mt-1 text-muted">
         {kind === 'in_app' && isAndroid

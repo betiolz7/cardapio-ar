@@ -307,7 +307,7 @@ Sem um `404.html`, o Cloudflare Pages já trata o site como SPA. **Não crie `_r
 - **Performance:** o cardápio abre em menos de 2 s no 4G. Bundle inicial de até ~150 KB gzip. Fotos em `.webp` de até 80 KB, com `loading="lazy"`. O model-viewer só carrega quando precisa. Modelos com `loading="lazy"` e poster.
 - **Compatibilidade:** testar sempre em Android (Chrome), iPhone (Safari) **e no navegador interno do Instagram**.
 - **Acessibilidade:** `alt` descritivo no 3D (com as medidas), bom contraste, botões de pelo menos 48 px. O cardápio é usado em restaurante com pouca luz.
-- **Dark mode:** é o padrão do cardápio público, por causa do ambiente escuro.
+- **Identidade visual (KodaLabs):** creme `#f8f3ea` e azul-marinho `#0f1d40`, com detalhes de pixel (o cachorro do logo, bordas de 2 px, sombra deslocada). O creme é menos ofuscante que o branco no salão. Cada restaurante pode ter a sua cor de destaque (`theme_color`); a cor do texto sobre ela é calculada para ter contraste (`src/lib/color.ts`). O cardápio leva a assinatura "cardápio em 3D por kodalabs" no rodapé. Tokens em `src/index.css`.
 - **LGPD:** as métricas são anônimas, com `session_id` aleatório, sem cookie de rastreamento e sem dado pessoal do cliente final.
 - **Segurança:** a chave `service_role` nunca vai para o navegador. A segurança está no RLS; o que o front esconde é só usabilidade.
 

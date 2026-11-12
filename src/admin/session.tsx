@@ -51,7 +51,7 @@ export function AdminGate({ children }: { children: ReactNode }) {
     return (
       <StatusScreen title="Sua conta ainda não está ligada a um restaurante">
         <p>Fale com a gente para liberar o acesso.</p>
-        <button type="button" onClick={signOut} className="mt-4 min-h-12 rounded-full bg-surface-2 px-6 font-semibold text-ink">
+        <button type="button" onClick={signOut} className="mt-4 min-h-12 rounded-md border-2 border-ink/20 bg-surface px-6 font-semibold text-ink">
           Sair
         </button>
       </StatusScreen>

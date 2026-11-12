@@ -211,7 +211,7 @@ test('mesas: cria numeradas, renomeia, troca código, exclui e imprime plaquinha
   await page.getByRole('link', { name: 'Imprimir plaquinhas' }).click()
   await expect(page).toHaveURL(/\/admin\/mesas\/imprimir$/)
   await expect(page.locator('article')).toHaveCount(5)
-  await expect(page.locator('article svg')).toHaveCount(5)
+  await expect(page.locator('article [role=img][aria-label^="QR code"] svg')).toHaveCount(5)
   await expect(page.locator('article').first()).toContainText('Casa Lume')
   await expect(page.getByRole('button', { name: 'Imprimir' })).toBeEnabled()
 })

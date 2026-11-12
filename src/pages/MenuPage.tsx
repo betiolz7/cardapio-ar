@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { useParams, useSearchParams } from 'react-router'
+import { MadeByKoda } from '../components/brand/Koda.tsx'
 import { CategoryTabs } from '../components/menu/CategoryTabs.tsx'
 import { MenuItemCard } from '../components/menu/MenuItemCard.tsx'
 import { LoadingScreen, StatusScreen } from '../components/StatusScreen.tsx'
 import { rememberTable, track } from '../lib/analytics.ts'
+import { accentVars } from '../lib/color.ts'
 import { useMenu } from '../lib/menu.ts'
 import type { Menu } from '../lib/types.ts'
 
@@ -25,7 +27,7 @@ export function MenuPage() {
     return (
       <StatusScreen title="Não foi possível carregar o cardápio">
         <p>Verifique sua conexão.</p>
-        <button type="button" onClick={state.retry} className="mt-4 min-h-12 rounded-full bg-accent px-6 font-semibold text-accent-ink">
+        <button type="button" onClick={state.retry} className="btn-px mt-4 min-h-12 rounded-md bg-ink px-6 font-bold text-bg">
           Tentar de novo
         </button>
       </StatusScreen>
@@ -57,16 +59,32 @@ function MenuView({ menu }: { menu: Menu }) {
   const withModel = items.filter((i) => i.model).length
 
   return (
-    <div style={restaurant.theme_color ? ({ '--accent': restaurant.theme_color } as CSSProperties) : undefined}>
+    <div style={accentVars(restaurant.theme_color) as CSSProperties | undefined}>
       <main className="mx-auto max-w-2xl px-4 pb-16">
-        <header className="pt-8 pb-4">
-          {restaurant.logo_url && (
-            <img src={restaurant.logo_url} alt="" width={56} height={56} className="mb-3 size-14 rounded-xl object-cover" />
-          )}
-          <h1 className="text-3xl font-bold tracking-tight">{restaurant.name}</h1>
+        <header className="pt-8 pb-5">
+          <div className="flex items-center gap-3">
+            {restaurant.logo_url ? (
+              <img
+                src={restaurant.logo_url}
+                alt=""
+                width={56}
+                height={56}
+                className="size-14 rounded-md border-2 border-ink object-cover"
+              />
+            ) : (
+              <span
+                aria-hidden="true"
+                className="grid size-14 place-items-center rounded-md border-2 border-ink bg-accent font-display text-2xl font-bold text-accent-ink"
+              >
+                {restaurant.name.trim().charAt(0).toUpperCase()}
+              </span>
+            )}
+            <h1 className="text-3xl font-bold leading-tight">{restaurant.name}</h1>
+          </div>
           {withModel > 0 && (
-            <p className="mt-2 text-sm text-muted">
-              Toque nos pratos com <span className="font-bold text-accent">3D</span> para ver no tamanho real, em cima da sua mesa.
+            <p className="mt-4 flex items-start gap-2.5 rounded-md border-2 border-ink/10 bg-surface p-3 text-sm text-muted">
+              <span className="shrink-0 rounded-sm bg-ink px-1.5 font-pixel text-xs leading-5 text-bg">3D</span>
+              <span>Toque nos pratos marcados para girar em 3D e ver no tamanho real, em cima da sua mesa.</span>
             </p>
           )}
         </header>
@@ -75,7 +93,8 @@ function MenuView({ menu }: { menu: Menu }) {
 
         {sections.map(({ category, items: sectionItems }) => (
           <section key={category.id} aria-labelledby={`cat-${category.id}`} className="mt-6">
-            <h2 id={`cat-${category.id}`} className="mb-3 text-lg font-semibold">
+            <h2 id={`cat-${category.id}`} className="mb-3 flex items-center gap-2 text-lg font-bold">
+              <span aria-hidden="true" className="size-2.5 bg-accent ring-2 ring-ink" />
               {category.name}
             </h2>
             <ul className="space-y-3">
@@ -87,6 +106,8 @@ function MenuView({ menu }: { menu: Menu }) {
             </ul>
           </section>
         ))}
+
+        <MadeByKoda />
       </main>
     </div>
   )

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router'
+import { KodaLogo } from '../components/brand/Koda.tsx'
 import { useAdmin } from './admin-context.ts'
 import { canEdit } from './data.ts'
 import { buttonSecondary } from './ui.tsx'
@@ -22,13 +23,13 @@ export function AdminHeader() {
     <header className="print:hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 py-5">
         <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">Painel</p>
+          <KodaLogo className="text-sm" dogClass="size-5" />
           {memberships.length > 1 ? (
             <select
               aria-label="Restaurante"
               value={restaurant.id}
               onChange={(e) => selectRestaurant(e.target.value)}
-              className="mt-1 max-w-full rounded-lg bg-surface-2 px-2 py-1 text-xl font-bold"
+              className="mt-1 max-w-full rounded-md border-2 border-ink/15 bg-surface px-2 py-1 font-display text-xl font-bold"
             >
               {memberships.map((m) => (
                 <option key={m.restaurant.id} value={m.restaurant.id}>
@@ -37,7 +38,7 @@ export function AdminHeader() {
               ))}
             </select>
           ) : (
-            <h1 className="truncate text-2xl font-bold">{restaurant.name}</h1>
+            <h1 className="mt-1 truncate text-2xl font-bold">{restaurant.name}</h1>
           )}
         </div>
         <div className="flex gap-2">
@@ -51,7 +52,7 @@ export function AdminHeader() {
       </div>
 
       {tabs.length > 1 && (
-        <nav aria-label="Seções do painel" className="-mx-4 mb-2 border-b border-line px-4">
+        <nav aria-label="Seções do painel" className="-mx-4 mb-2 border-b-2 border-ink/10 px-4">
           <ul className="flex gap-1 overflow-x-auto [scrollbar-width:none]">
             {tabs.map((tab) => (
               <li key={tab.to} className="shrink-0">
@@ -59,8 +60,8 @@ export function AdminHeader() {
                   to={tab.to}
                   end={tab.end}
                   className={({ isActive }) =>
-                    `inline-flex min-h-12 items-center border-b-2 px-3 font-semibold ${
-                      isActive ? 'border-accent text-ink' : 'border-transparent text-muted hover:text-ink'
+                    `-mb-0.5 inline-flex min-h-12 items-center border-b-4 px-3 font-bold ${
+                      isActive ? 'border-ink text-ink' : 'border-transparent text-muted hover:text-ink'
                     }`
                   }
                 >

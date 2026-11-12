@@ -110,7 +110,7 @@ export function ItemsPage() {
       {items === null && !error && <p className="mt-8 text-center text-muted">Carregando pratos…</p>}
 
       {items?.length === 0 && (
-        <p className="mt-8 rounded-2xl border border-dashed border-line p-6 text-center text-muted">
+        <p className="mt-8 rounded-lg border border-dashed border-line p-6 text-center text-muted">
           Nenhum prato cadastrado ainda. Toque em “Cadastrar prato” para começar.
         </p>
       )}
@@ -122,13 +122,13 @@ export function ItemsPage() {
           return (
             <section key={cat.id || 'none'} className="mt-6">
               <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">{cat.name}</h2>
-              <ul className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface">
+              <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
                 {list.map((item, idx) => (
                   <li key={item.id} className="flex items-center gap-3 p-3">
                     <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-surface-2">
                       {item.photo_url && <img src={item.photo_url} alt="" className="size-full object-cover" loading="lazy" />}
                       {item.model && (
-                        <span className="absolute bottom-0.5 left-0.5 rounded bg-bg/85 px-1 text-[10px] font-bold text-accent">3D</span>
+                        <span className="absolute bottom-0.5 left-0.5 rounded-sm bg-ink px-1 font-pixel text-[10px] leading-4 text-bg">3D</span>
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -178,7 +178,7 @@ export function ItemsPage() {
                         />
                         <span
                           aria-hidden
-                          className="relative h-7 w-12 rounded-full bg-line transition-colors peer-checked:bg-accent peer-focus-visible:outline-3 peer-focus-visible:outline-accent after:absolute after:top-1 after:left-1 after:size-5 after:rounded-full after:bg-ink after:transition-transform peer-checked:after:translate-x-5"
+                          className="relative h-7 w-12 rounded-md border-2 border-ink bg-surface-2 transition-colors peer-checked:bg-ink peer-focus-visible:outline-3 peer-focus-visible:outline-sky after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-sm after:bg-ink after:transition-transform peer-checked:after:translate-x-5 peer-checked:after:bg-bg"
                         />
                       </label>
                     )}

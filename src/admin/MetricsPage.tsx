@@ -55,7 +55,7 @@ export function MetricsPage() {
 
       <div className="mt-4 flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Resumo</h2>
-        <div role="radiogroup" aria-label="Período" className="flex gap-1 rounded-xl bg-surface-2 p-1">
+        <div role="radiogroup" aria-label="Período" className="flex gap-1 rounded-md bg-surface-2 p-1">
           {PERIODS.map((p) => (
             <button
               key={p}
@@ -77,7 +77,7 @@ export function MetricsPage() {
       {metrics && t && (
         <div className="mt-4 space-y-5">
           {t.sessions === 0 ? (
-            <p className="rounded-2xl border border-dashed border-line p-6 text-center text-muted">
+            <p className="rounded-lg border border-dashed border-line p-6 text-center text-muted">
               Ainda não há visitas neste período. Coloque os QR codes nas mesas para começar a medir.
             </p>
           ) : (
@@ -171,7 +171,7 @@ export function MetricsPage() {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
+    <div className="rounded-lg border border-line bg-surface p-4">
       <dt className="text-sm text-muted">{label}</dt>
       <dd className="mt-1 text-2xl font-bold tabular-nums">{value}</dd>
       {hint && <dd className="text-xs text-muted">{hint}</dd>}

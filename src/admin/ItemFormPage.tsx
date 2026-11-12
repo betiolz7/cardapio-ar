@@ -312,7 +312,7 @@ function ItemForm({ initial, categories: initialCategories }: { initial: AdminIt
         {/* 1. Foto ------------------------------------------------------- */}
         <Section title="Foto do prato" description="Prato inteiro, com boa luz e fundo neutro. A foto é comprimida antes de enviar.">
           <div className="flex items-center gap-4">
-            <div className="size-28 shrink-0 overflow-hidden rounded-xl bg-surface-2">
+            <div className="size-28 shrink-0 overflow-hidden rounded-md bg-surface-2">
               {shownPhoto ? (
                 <img src={shownPhoto} alt="Foto do prato" className="size-full object-cover" />
               ) : (
@@ -407,7 +407,7 @@ function ItemForm({ initial, categories: initialCategories }: { initial: AdminIt
           ) : (
             <>
               {previewModel && (
-                <div className="aspect-square max-h-80 w-full overflow-hidden rounded-xl border border-line bg-gradient-to-b from-surface-2 to-surface">
+                <div className="aspect-square max-h-80 w-full overflow-hidden rounded-md border border-line bg-gradient-to-b from-surface-2 to-surface">
                   <ModelViewer key={previewModel.glb_url} model={previewModel} alt={`Prévia 3D de ${name || 'prato'}`} />
                 </div>
               )}
@@ -432,7 +432,7 @@ function ItemForm({ initial, categories: initialCategories }: { initial: AdminIt
                       role="radio"
                       aria-checked={dimsForm.shape === shape}
                       onClick={() => setDimsForm((f) => ({ ...f, shape }))}
-                      className={`min-h-11 flex-1 rounded-xl border px-3 text-sm font-semibold ${
+                      className={`min-h-11 flex-1 rounded-md border px-3 text-sm font-semibold ${
                         dimsForm.shape === shape ? 'border-accent bg-accent/15 text-ink' : 'border-line bg-surface-2 text-muted'
                       }`}
                     >

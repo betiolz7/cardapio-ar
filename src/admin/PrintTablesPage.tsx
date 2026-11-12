@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { KodaDog } from '../components/brand/Koda.tsx'
 import { publicOrigin, tableUrl } from '../lib/qr.ts'
 import { useAdmin } from './admin-context.ts'
 import { listTables, type AdminTable } from './data.ts'
@@ -29,14 +30,14 @@ export function PrintTablesPage() {
     <div className="min-h-dvh bg-white text-black">
       <div className="mx-auto max-w-[190mm] px-4 py-6 print:max-w-none print:p-0">
         <div className="mb-6 flex flex-wrap items-center gap-3 print:hidden">
-          <Link to="/admin/mesas" className="inline-flex min-h-12 items-center rounded-xl border border-black/20 px-4 font-semibold">
+          <Link to="/admin/mesas" className="inline-flex min-h-12 items-center rounded-md border border-black/20 px-4 font-semibold">
             ← Voltar
           </Link>
           <button
             type="button"
             onClick={() => window.print()}
             disabled={!tables?.length}
-            className="inline-flex min-h-12 items-center rounded-xl bg-black px-5 font-bold text-white disabled:opacity-50"
+            className="inline-flex min-h-12 items-center rounded-md bg-black px-5 font-bold text-white disabled:opacity-50"
           >
             Imprimir
           </button>
@@ -63,6 +64,9 @@ export function PrintTablesPage() {
                 Aponte a câmera do celular
                 <br />
                 <strong>e veja os pratos em 3D na sua mesa</strong>
+              </p>
+              <p className="mt-3 inline-flex items-center gap-1 font-pixel text-[10px] text-black/50">
+                <KodaDog className="size-3" /> kodalabs
               </p>
             </article>
           ))}
