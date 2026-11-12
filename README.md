@@ -105,11 +105,13 @@ O pipeline completo está na seção 6 do CONTEXT.md.
 O AR exige **HTTPS**, então `http://192.168.x.x:5173` não funciona. Use um túnel gratuito, sem conta:
 
 ```bash
-npm run dev
+npm run dev:demo                                      # modo demonstração, mesmo com .env.local
 npx cloudflared tunnel --url http://localhost:5173    # mostra uma URL https://....trycloudflare.com
 ```
 
-Abra essa URL no celular (Chrome no Android, Safari no iPhone) e teste "Ver na minha mesa".
+Abra `https://....trycloudflare.com/casa-lume` no celular (Chrome no Android, Safari no iPhone) e teste "Ver na minha mesa". Feche o túnel (Ctrl+C) quando terminar.
+
+Use o modo demonstração: o celular não alcança o Supabase local (`127.0.0.1`). Para testar o painel no celular (foto pela câmera, envio do `.glb`), publique o app (seção Deploy). Não abra um túnel para o Supabase local: as chaves locais são públicas e qualquer pessoa com a URL teria acesso total ao banco.
 
 ## Deploy (Cloudflare Pages, grátis)
 

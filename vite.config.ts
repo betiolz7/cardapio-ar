@@ -8,6 +8,11 @@ export default defineConfig({
   server: {
     // Permite abrir pelo celular na mesma rede (AR exige HTTPS: use um túnel, ver README).
     host: true,
+    // Libera os túneis gratuitos do Cloudflare (o Vite bloqueia hosts desconhecidos).
+    allowedHosts: ['.trycloudflare.com'],
+  },
+  preview: {
+    allowedHosts: ['.trycloudflare.com'],
   },
   build: {
     // O chunk do model-viewer (+ three.js) tem ~1 MB (~290 KB gzip), mas só é

@@ -24,4 +24,5 @@ if (key && isSecretKey(key)) {
 
 export const supabaseUrl = url ?? ''
 export const supabaseKey = key ?? ''
-export const isSupabaseConfigured = Boolean(url && key)
+// `npm run dev:demo` (modo "demo") força o modo demonstração mesmo com o .env.local.
+export const isSupabaseConfigured = import.meta.env.MODE !== 'demo' && Boolean(url && key)
