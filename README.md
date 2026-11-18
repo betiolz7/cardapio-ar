@@ -1,12 +1,80 @@
-# Cardápio AR
+<div align="center">
 
-Cardápio digital web com pratos em 3D e realidade aumentada no tamanho real, em cima da mesa do cliente. Sem app: o cliente escaneia o QR code e abre no navegador.
+# 🍔 Cardápio AR
+
+**O cliente vê o prato em 3D e em realidade aumentada, no tamanho real, em cima da própria mesa. Sem instalar app.**
+
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20RLS-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com)
+[![model-viewer](https://img.shields.io/badge/3D%2FAR-model--viewer-4285F4?logo=google&logoColor=white)](https://modelviewer.dev)
+[![Cloudflare Pages](https://img.shields.io/badge/deploy-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
+
+Um produto [**KodaLabs**](https://github.com/betiolz7/kodalabs)
+
+<br>
+
+<img src="docs/img/cardapio.png" width="260" alt="Cardápio da Casa Lume com pratos marcados como 3D">
+&nbsp;&nbsp;&nbsp;
+<img src="docs/img/prato-3d.png" width="260" alt="Lume Burger em 3D com o botão Ver na minha mesa">
+
+<sub>Modo demonstração: cardápio "Casa Lume" rodando no celular</sub>
+
+</div>
+
+---
+
+## ✨ Como funciona para o cliente
+
+1. **Escaneia o QR code** da mesa
+2. O cardápio do restaurante **abre no navegador**, sem baixar nada
+3. **Gira o prato em 3D** com o dedo e vê medidas e porção
+4. Toca em **"Ver na minha mesa"**: a câmera abre e o prato aparece **em escala 1:1** em cima da mesa
+
+Funciona no Chrome (Android) e no Safari (iPhone), via WebXR, Scene Viewer e Quick Look.
+
+## 🚀 Funcionalidades
+
+**Para o cliente**
+- Cardápio por categorias, com foto, preço, descrição e quantas pessoas cada prato serve
+- Visualizador 3D carregado sob demanda e realidade aumentada no tamanho real
+- Aviso quando o cardápio é aberto dentro do Instagram ou de outro app onde o AR não funciona
+
+**Painel do restaurante (`/admin`)**
+- 🍽️ Cadastro de pratos com foto tirada pelo celular, comprimida no aparelho antes do envio
+- 🧊 Envio do modelo 3D com **validação automática**: escala, base na mesa, tamanho do arquivo e medidas conferidas antes de publicar
+- ⛔ Marcar prato como esgotado (o garçom também consegue)
+- 🗂️ Organizar pratos e categorias
+- 🔳 Mesas com **QR code**, download em SVG e impressão das plaquinhas em A4
+- 📊 **Métricas**: visitas, pratos abertos, quem girou o 3D, quem viu na mesa, ranking de pratos e visitas por mesa
+- 👥 Papéis de acesso: dono, admin e garçom, com isolamento entre restaurantes no banco (RLS)
+
+## 🛠️ Stack
+
+| Camada | Tecnologia |
+|---|---|
+| Front-end | React 19, TypeScript, Vite, Tailwind CSS 4, React Router |
+| 3D e AR | `@google/model-viewer`, three.js, glTF Transform |
+| Back-end | Supabase: Postgres, Auth, Row Level Security, Storage e RPCs |
+| Hospedagem | Cloudflare Pages (custo zero, uso comercial permitido) |
+| Qualidade | Vitest, Playwright (e2e), oxlint e CI no GitHub Actions com Supabase local |
+
+## 💡 Decisões de engenharia
+
+- **Custo zero até ter receita:** SPA estática no Cloudflare Pages + Supabase Free, com uma rotina que impede o projeto de pausar por inatividade
+- **Segurança no banco:** cada restaurante só enxerga os próprios dados por RLS, e o app se recusa a iniciar se detectar uma chave secreta no front
+- **Modelos leves:** script próprio de otimização (quantização + texturas WEBP) e validador que usa as mesmas regras do painel
+- **Modo demonstração:** sem `.env`, o app roda com um cardápio de exemplo, ótimo para mostrar o produto sem backend
+
+> As decisões completas, a análise de mercado e o pipeline dos modelos 3D estão no [`CONTEXT.md`](CONTEXT.md).
+
+---
+
+# 🧑‍💻 Para desenvolvedores
 
 Leia o [CONTEXT.md](CONTEXT.md) antes de mexer no código. Ele explica as decisões, as regras de escala e a restrição de custo zero.
-
-## Stack
-
-Vite, React 19, TypeScript, Tailwind v4, `@google/model-viewer`, Supabase (Postgres, Auth e RLS) e Cloudflare Pages.
 
 ## Rodar
 
@@ -141,3 +209,11 @@ scripts/           check-model.mjs, optimize-model.mjs, create-owner.mjs
 tests/e2e/         Playwright
 prototype/         protótipo estático da Fase 0
 ```
+
+---
+
+<div align="center">
+
+Feito por [Gabriel Betiol](https://github.com/betiolz7) · KodaLabs
+
+</div>
